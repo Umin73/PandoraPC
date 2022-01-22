@@ -9,7 +9,12 @@ public class PlayerMove : MonoBehaviour
     private float x, y;
     private int direction;
     private bool isMove;
+    private bool isCook;
     private bool isW, isA, isS, isD;
+    
+    private GameObject nearObject; //충돌한 오브젝트
+    
+    
 
     // Start is called before the first frame update
     void Start()
@@ -150,5 +155,32 @@ public class PlayerMove : MonoBehaviour
             transform.localScale = new Vector3(-1,1,1);
         }
 
+    }
+    
+     void Interaction()
+    {
+        if(nearObject.tag == "Cook")
+        {
+            Food food = nearObject.GetComponent<Food>();
+            food.Enter(this);
+            isCook = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Cook")
+            nearObject = collision.gameObject;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.tag == "Cook")
+        {
+            Food food = nearObject.GetComponent<Food>();
+            food.Exit();
+            nearObject = null;
+            isCook = false;
+        }
     }
 }
