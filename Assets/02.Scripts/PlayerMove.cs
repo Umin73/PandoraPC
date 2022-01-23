@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    public GameObject icon;
     private Rigidbody2D rb;
     public float speed;
     private float x, y;
@@ -11,8 +12,13 @@ public class PlayerMove : MonoBehaviour
     private bool isMove;
     private bool isCook;
     private bool isW, isA, isS, isD;
+    private bool isObject, isInter;
+
+    //패널 예시
+    public GameObject panel;
+
     
-    private GameObject nearObject; //충돌한 오브젝트
+   // private GameObject nearObject; //충돌한 오브젝트
     
     
 
@@ -21,6 +27,13 @@ public class PlayerMove : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         
+        Setup();
+    }
+
+    void Setup()
+    {
+        isInter = false;
+        isObject = false;
         isMove = false;
         isW = false;
         isA = false;
@@ -31,74 +44,81 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if(Input.GetKey(KeyCode.UpArrow))
+        if(Input.GetKey(KeyCode.Space) && isObject)
         {
-            isW = true;
-            isMove = true;
-        }
-        if(Input.GetKey(KeyCode.LeftArrow))
-        {
-            isA = true;
-            isMove = true;
-        }
-        if(Input.GetKey(KeyCode.DownArrow))
-        {
-            isS = true;
-            isMove = true;
-        }
-        if(Input.GetKey(KeyCode.RightArrow))
-        {
-            isD = true;
-            isMove = true;
+            Interaction();
         }
 
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if(!isInter)
         {
-           SetDirection();
-        }
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            SetDirection();
-        }
-        if(Input.GetKeyDown(KeyCode.DownArrow))
-        {
-           SetDirection();
-        }
-        if(Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            SetDirection();
-        }
+            if(Input.GetKey(KeyCode.UpArrow))
+            {
+                isW = true;
+                isMove = true;
+            }
+            if(Input.GetKey(KeyCode.LeftArrow))
+            {
+                isA = true;
+                isMove = true;
+            }
+            if(Input.GetKey(KeyCode.DownArrow))
+            {
+                isS = true;
+                isMove = true;
+            }
+            if(Input.GetKey(KeyCode.RightArrow))
+            {
+                isD = true;
+                isMove = true;
+            }
 
-        if(Input.GetKeyUp(KeyCode.UpArrow))
-        {
-            isW =false;
-            isMove = false;
+            if(Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                SetDirection();
+            }
+            if(Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                SetDirection();
+            }
+            if(Input.GetKeyDown(KeyCode.DownArrow))
+            {
             SetDirection();
-        }
-        if(Input.GetKeyUp(KeyCode.LeftArrow))
-        {
-            isA = false;
-            isMove = false;
-            SetDirection();
-        }
-        if(Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            isS = false;
-            isMove = false;
-            SetDirection();
-        }
-        if(Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            isD = false;
-            isMove = false;
-            SetDirection();
+            }
+            if(Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                SetDirection();
+            }
+
+            if(Input.GetKeyUp(KeyCode.UpArrow))
+            {
+                isW =false;
+                isMove = false;
+                SetDirection();
+            }
+            if(Input.GetKeyUp(KeyCode.LeftArrow))
+            {
+                isA = false;
+                isMove = false;
+                SetDirection();
+            }
+            if(Input.GetKeyUp(KeyCode.DownArrow))
+            {
+                isS = false;
+                isMove = false;
+                SetDirection();
+            }
+            if(Input.GetKeyUp(KeyCode.RightArrow))
+            {
+                isD = false;
+                isMove = false;
+                SetDirection();
+            }
         }
     }
 
     void FixedUpdate()
     {
-        if(isMove)
+        if(isMove && !isInter)
         {
           rb.MovePosition(rb.position + new Vector2(x,y)*Time.deltaTime);
         }
@@ -157,15 +177,24 @@ public class PlayerMove : MonoBehaviour
 
     }
     
+    //예시
      void Interaction()
     {
+        /*
         if(nearObject.tag == "Cook")
         {
             Food food = nearObject.GetComponent<Food>();
             food.Enter(this);
             isCook = true;
         }
+        */
+
+        isInter = true;
+        isMove = false;
+        panel.SetActive(true);
     }
+
+    /*
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -183,4 +212,26 @@ public class PlayerMove : MonoBehaviour
             isCook = false;
         }
     }
+    
+    */
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Object")
+        {
+            icon.SetActive(true);
+            isObject = true;
+        }
+            
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Object")
+        {
+            icon.SetActive(false);
+            isObject = false;
+        }
+    }
+
 }

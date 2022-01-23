@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public PlayerMove player;
-    public Guest guest;
+    //public Guest guest;
     public GameObject gamePanel; //인게임 판넬
 
     public Text timeText;
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         int sec = (int)(playTime % 60);
         timeText.text = string.Format("{0:00}", min) + ":" + string.Format("{0:00}", sec);
 
-        AngryGuage.fillAmount = guest.curAngry / guest.MaxAngry;
+        //AngryGuage.fillAmount = guest.curAngry / guest.MaxAngry;
     }
 
     public void Cook()
