@@ -4,27 +4,26 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public GameObject icon;
+    private InGameManager GM;
+    //public GameObject icon;
     private Rigidbody2D rb;
     public float speed;
     private float x, y;
     private int direction;
     private bool isMove;
-    private bool isCook;
     private bool isW, isA, isS, isD;
     private bool isObject, isInter;
 
     //패널 예시
-    public GameObject panel;
+    //public GameObject panel;
 
-    
-   // private GameObject nearObject; //충돌한 오브젝트
     
     
 
     // Start is called before the first frame update
     void Start()
     {
+        GM = GameObject.Find("InGameManager").GetComponent<InGameManager>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         
         Setup();
@@ -168,69 +167,79 @@ public class PlayerMove : MonoBehaviour
 
         if(x >= 0)
         {
-            transform.localScale = new Vector3(1,1,1);
+            transform.localScale = new Vector3(-1,1,1);
         }
         else
         {
-            transform.localScale = new Vector3(-1,1,1);
+            transform.localScale = new Vector3(1,1,1);
         }
 
     }
     
     //예시
-     void Interaction()
+    void Interaction()
     {
-        /*
-        if(nearObject.tag == "Cook")
-        {
-            Food food = nearObject.GetComponent<Food>();
-            food.Enter(this);
-            isCook = true;
-        }
-        */
-
         isInter = true;
         isMove = false;
-        panel.SetActive(true);
+        GM.PanelActive();
     }
 
-    /*
 
-    private void OnTriggerStay2D(Collider2D collision)
+    public void DeActInter()
     {
-        if (collision.tag == "Cook")
-            nearObject = collision.gameObject;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision.tag == "Cook")
+        if(isInter)
         {
-            Food food = nearObject.GetComponent<Food>();
-            food.Exit();
-            nearObject = null;
-            isCook = false;
+            isInter = false;
+            isMove = true;
         }
     }
-    
-    */
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag == "Object")
+        if (collision.CompareTag("Cook"))
         {
-            icon.SetActive(true);
             isObject = true;
+            GM.CookIconActive(true);
+        }
+        else if(collision.CompareTag("Electro"))
+        {
+            isObject = true;
+            GM.ElecIconActive(true);
+        }
+        else if(collision.CompareTag("Clean"))
+        {
+            isObject = true;
+            GM.CleanIconActive(true);
+        }
+        else if(collision.CompareTag("Storage"))
+        {
+            isObject = true;
+            GM.StorageIconActive(true);
         }
             
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Object")
+        if (collision.CompareTag("Cook"))
         {
-            icon.SetActive(false);
             isObject = false;
+            GM.CookIconActive(false);
+        }
+        else if(collision.CompareTag("Electro"))
+        {
+            isObject = false;
+            GM.ElecIconActive(false);
+        }
+        else if(collision.CompareTag("Clean"))
+        {
+            isObject = false;
+            GM.CleanIconActive(false);
+        }
+        else if(collision.CompareTag("Storage"))
+        {
+            isObject = false;
+            GM.StorageIconActive(false);
         }
     }
 
