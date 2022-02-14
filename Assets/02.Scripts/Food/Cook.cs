@@ -9,6 +9,8 @@ public class Cook : MonoBehaviour
     public Transform slotRoot;
     private List<Slot> slots;
 
+    public GameObject warning;
+
     public bool use = false;
 
     public System.Action<FoodProperty> doneCook;

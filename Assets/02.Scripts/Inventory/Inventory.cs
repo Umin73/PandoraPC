@@ -9,11 +9,15 @@ public class Inventory : MonoBehaviour
 
     private List<InventorySlot> slots;
 
+    private int slotCnt;
+    public int curSlot;
+    public bool input;
+
     void Start()
     {
         slots = new List<InventorySlot>();
 
-        int slotCnt = rootSlot.childCount;
+        slotCnt = rootSlot.childCount;
         for(int i = 0; i < slotCnt; i++)
         {
             var slot = rootSlot.GetChild(i).GetComponent<InventorySlot>();
@@ -21,6 +25,12 @@ public class Inventory : MonoBehaviour
             slots.Add(slot);
         }
         cook.doneCook += Cooked;
+    }
+
+    private void Update()
+    {
+        if (curSlot <= 4) input = true;
+        else input = false;
     }
 
     void Cooked(FoodProperty food)
@@ -32,6 +42,7 @@ public class Inventory : MonoBehaviour
         {
             Debug.Log("½½·Ô¿¡ ³Ö±â!");
             emptySlot.SetFood(food); //ÅÖºó ½½·Ô ÀÖÀ¸¸é À½½Ä ³Ö±â
+            curSlot++;
         }
         else
         {

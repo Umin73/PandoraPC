@@ -5,21 +5,19 @@ using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
 {
-    [HideInInspector]
-    public FoodProperty food;
+    [HideInInspector] public FoodProperty food;
     public Cook cook;
+    public Inventory inventory; 
 
     private List<InventorySlot> slots;
 
     public Image image;
-
     public Image cookGuage;
 
     public float curCookTime;
     public bool isCooking;
     public bool finish;
 
-    // public GameObject notCookPanel;  
 
     private void Start()
     {
@@ -51,7 +49,7 @@ public class Slot : MonoBehaviour
         else
         {
             curCookTime = 0;
- 
+
         }
     }
 
@@ -74,27 +72,17 @@ public class Slot : MonoBehaviour
 
     public void Cooking()
     {
-        if(cook.use == false)
+        if(cook.use == false && inventory.curSlot <5)
         {
             cook.use = true;
             Debug.Log("조리가능");
             isCooking = true;
         }
-        else
+        else if(inventory.curSlot>=5)
         {
-            Debug.Log("조리불가");
+            cook.warning.SetActive(true);
         }
     }
 
-    /*public void ExitCooking()
-    {
-        cookingPanel.SetActive(false);
-        isCooking = false; //조리하던 것 강제 종료
-    }
-
-    public void ExitNotCook()
-    {
-        notCookPanel.SetActive(false);
-    }*/
 
 }

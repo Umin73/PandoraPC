@@ -132,8 +132,8 @@ TextureImporter:
         width: 167
         height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 17, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -149,12 +149,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 410
-        y: 330
+        y: 346
         width: 131
-        height: 148
+        height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 10, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -169,13 +169,13 @@ TextureImporter:
       name: "\uD310\uB3C4\uB77Cpc \uC74C\uC2DD\uC544\uC774\uCF582_2"
       rect:
         serializedVersion: 2
-        x: 688
+        x: 697
         y: 318
-        width: 114
+        width: 105
         height: 143
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 14, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -190,13 +190,13 @@ TextureImporter:
       name: "\uD310\uB3C4\uB77Cpc \uC74C\uC2DD\uC544\uC774\uCF582_3"
       rect:
         serializedVersion: 2
-        x: 123
+        x: 126
         y: 96
-        width: 168
+        width: 165
         height: 138
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 14, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -212,11 +212,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 421
-        y: 97
+        y: 113
         width: 125
-        height: 143
+        height: 127
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -232,13 +232,13 @@ TextureImporter:
       name: "\uD310\uB3C4\uB77Cpc \uC74C\uC2DD\uC544\uC774\uCF582_5"
       rect:
         serializedVersion: 2
-        x: 691
+        x: 690
         y: 89
         width: 149
         height: 155
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 13, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -258,8 +258,8 @@ TextureImporter:
         width: 147
         height: 134
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 18, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
