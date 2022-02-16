@@ -10,6 +10,8 @@ TagManager:
   - Clean
   - Storage
   - Computer
+  - trash_can
+  - trash_paperCup
   layers:
   - Default
   - TransparentFX
