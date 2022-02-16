@@ -12,6 +12,7 @@ TagManager:
   - Computer
   - trash_can
   - trash_paperCup
+  - elecButton
   layers:
   - Default
   - TransparentFX
