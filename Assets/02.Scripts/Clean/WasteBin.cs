@@ -8,7 +8,7 @@ public class WasteBin : MonoBehaviour, IDropHandler
 {
     [HideInInspector] public Vector3 curPos;
 
-    private WasteManager wasteManager;
+    //private WasteManager wasteManager;
 
 
     public void OnDrop(PointerEventData eventData)
