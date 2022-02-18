@@ -120,6 +120,11 @@ public class PlayerMove : MonoBehaviour
         if(isMove && !isInter)
         {
           rb.MovePosition(rb.position + new Vector2(x,y)*Time.deltaTime);
+          
+        }
+        else
+        {
+            gameObject.GetComponent<Animator>().speed = 0.0f;
         }
     }
 
@@ -165,13 +170,13 @@ public class PlayerMove : MonoBehaviour
         y = speed * Mathf.Sin(direction * Mathf.Deg2Rad);
 
 
-        if(x >= 0)
+        if(x > 0 && transform.localScale.x > 0)
         {
-            transform.localScale = new Vector3(-1,1,1);
+            transform.localScale = new Vector3(transform.localScale.x * -1,transform.localScale.y,transform.localScale.z);
         }
-        else
+        else if(x < 0 && transform.localScale.x < 0)
         {
-            transform.localScale = new Vector3(1,1,1);
+            transform.localScale = new Vector3(transform.localScale.x * -1 ,transform.localScale.y ,transform.localScale .z);
         }
 
     }
@@ -190,7 +195,7 @@ public class PlayerMove : MonoBehaviour
         if(isInter)
         {
             isInter = false;
-            isMove = true;
+            isMove = false;
         }
     }
 

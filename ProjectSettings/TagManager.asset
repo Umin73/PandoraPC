@@ -51,6 +51,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Object
+    uniqueID: 679115579
+    locked: 0
   - name: Icon
     uniqueID: 3625886897
     locked: 0

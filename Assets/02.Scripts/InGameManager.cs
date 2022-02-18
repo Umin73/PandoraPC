@@ -7,12 +7,19 @@ public class InGameManager : MonoBehaviour
 {
     public GameObject cookIcon, elecIcon, cleanIcon, storageIcon;
     public GameObject cookPanel, elecPanel, cleanPanel, storagePanel;
+    public GameObject scoreText, gameoverPanel;
     bool canCook, canElec, canClean, canStorage;
     public GameObject complainGage;
     public float maxComplain;
     private float complainVar;
 
     private PlayerMove PM;
+
+    private float timescore;
+
+    bool isGameOver;
+
+    public List<GameObject> computers;
 
 
     // Start is called before the first frame update
@@ -23,7 +30,10 @@ public class InGameManager : MonoBehaviour
         canElec = false;
         canClean = false;
         canStorage = false;
+        isGameOver = false;
         complainGage.GetComponent<Image>().fillAmount = complainVar / maxComplain;
+
+        StartCoroutine(ComeGuest());
     }
 
     // Update is called once per frame
@@ -33,6 +43,33 @@ public class InGameManager : MonoBehaviour
         {
             ClosePanel();
         }
+
+        if(!isGameOver)
+            timescore += Time.deltaTime;
+    }
+
+    IEnumerator ComeGuest()
+    {
+        while(true)
+        {
+            int rnd = Random.Range(0, computers.Count);
+            int cooltime = Random.Range(5, 11);
+
+            computers[rnd].GetComponent<Computer>().SetGuest();
+
+            yield return new WaitForSeconds(cooltime);
+        }
+    }
+
+    void CheckGameOver()
+    {
+        if(complainVar >= maxComplain)
+        {
+            isGameOver = true;
+            gameoverPanel.SetActive(true);
+            scoreText.GetComponent<Text>().text = "Score : " + timescore.ToString();
+        }
+        
     }
 
     public void CookIconActive(bool onoff)
@@ -124,5 +161,7 @@ public class InGameManager : MonoBehaviour
     {
         complainVar += 1;
         complainGage.GetComponent<Image>().fillAmount = complainVar / maxComplain;
+
+        CheckGameOver();
     }
 }
