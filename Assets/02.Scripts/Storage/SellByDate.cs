@@ -20,7 +20,6 @@ public class SellByDate : MonoBehaviour
 
     private void Start()
     {
-
         sellbyDate = child.GetComponent<Text>();
 
         randomNum = UnityEngine.Random.Range(-500, 365);

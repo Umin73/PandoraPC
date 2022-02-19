@@ -12,12 +12,15 @@ public class Order : MonoBehaviour
     [SerializeField] private InputField orderQuantity; //입력 수량
     [SerializeField] private Button orderButton; //주문 버튼
 
-    public int curQuantity; //현재 수량
-    public int maxQuantity; //최대 수량
+    private int curQuantity; //현재 수량
+    private int maxQuantity; //최대 수량
 
 
     void Start()
     {
+        curQuantity = Random.Range(10, 90);
+        maxQuantity = 100;
+
         Quantity.text = curQuantity.ToString() + "/" + maxQuantity.ToString();
     }
 

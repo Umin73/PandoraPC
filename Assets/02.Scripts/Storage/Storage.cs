@@ -14,15 +14,19 @@ public class Storage : MonoBehaviour
     public int badCnt = 0;
     public int badMax = 0;
 
-    void Start()
+    private void Start()
     {
         sellByDates = new List<SellByDate>();
 
-        for(int i = 0; i < sellByDates.Count; i++)
+        while(badMax != 0)
         {
-            var box = boxRoot.GetChild(i).GetComponent<SellByDate>();
-            if (box.bad == true) badMax++;
+            for (int i = 0; i < sellByDates.Count; i++)
+            {
+                var box = boxRoot.GetChild(i).GetComponent<SellByDate>();
+                if (box.bad == true) badMax++;
+            }
         }
     }
+
 
 }

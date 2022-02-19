@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class InGameManager : MonoBehaviour
 {
-    public GameObject cookIcon, elecIcon, cleanIcon, storageIcon;
-    public GameObject cookPanel, elecPanel, cleanPanel, storagePanel;
+    public GameObject cookIcon, elecIcon, cleanIcon, storageIcon, counterIcon;
+    public GameObject cookPanel, elecPanel, cleanPanel, storagePanel, counterPanel;
     public GameObject scoreText, gameoverPanel;
-    bool canCook, canElec, canClean, canStorage;
+    bool canCook, canElec, canClean, canStorage, canCounter;
     public GameObject complainGage;
     public float maxComplain;
     private float complainVar;
@@ -30,6 +30,7 @@ public class InGameManager : MonoBehaviour
         canElec = false;
         canClean = false;
         canStorage = false;
+        canCounter = false;
         isGameOver = false;
         complainGage.GetComponent<Image>().fillAmount = complainVar / maxComplain;
 
@@ -128,6 +129,20 @@ public class InGameManager : MonoBehaviour
         }
     }
 
+    public void CounterIconActive(bool onoff)
+    {
+        if(onoff == true)
+        {
+            counterIcon.SetActive(true);
+            canCounter = true;
+        }
+        else
+        {
+            counterIcon.SetActive(false);
+            canCounter = false;
+        }
+    }
+
     public void PanelActive()
     {
         if(canCook)
@@ -146,6 +161,10 @@ public class InGameManager : MonoBehaviour
         {
             storagePanel.SetActive(true);
         }
+        else if(canCounter)
+        {
+            counterPanel.SetActive(true);
+        }
     }
 
     void ClosePanel()
@@ -154,6 +173,7 @@ public class InGameManager : MonoBehaviour
         elecPanel.SetActive(false);
         cleanPanel.SetActive(false);
         storagePanel.SetActive(false);
+        counterPanel.SetActive(false);
         PM.DeActInter();
     }
 

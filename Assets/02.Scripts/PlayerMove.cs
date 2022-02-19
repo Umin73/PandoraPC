@@ -220,6 +220,10 @@ public class PlayerMove : MonoBehaviour
         {
             isObject = true;
             GM.StorageIconActive(true);
+        }else if (collision.CompareTag("Counter"))
+        {
+            isObject = true;
+            GM.CounterIconActive(true);
         }
             
     }
@@ -245,6 +249,10 @@ public class PlayerMove : MonoBehaviour
         {
             isObject = false;
             GM.StorageIconActive(false);
+        }else if (collision.CompareTag("Counter"))
+        {
+            isObject = false;
+            GM.CounterIconActive(false);
         }
     }
 
