@@ -45,7 +45,6 @@ public class Cook : MonoBehaviour
             if (doneCook != null)
             {
                 doneCook(slot.food);
-                Debug.Log("DoneCook");
             }
         }
         slot.finish = false;

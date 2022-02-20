@@ -20,7 +20,23 @@ public class SellByDate : MonoBehaviour
 
     private void Start()
     {
+         Reset();
+    }
+
+    private void FixedUpdate()
+    {
+        if (storage.complete)
+        {
+            Reset();
+        }
+    }
+
+    public void Reset()
+    {
         sellbyDate = child.GetComponent<Text>();
+
+        this.GetComponent<Button>().interactable = true;
+        storage.badCnt = 0;
 
         randomNum = UnityEngine.Random.Range(-500, 365);
         today = DateTime.Today;
@@ -39,6 +55,32 @@ public class SellByDate : MonoBehaviour
             storage.badMax++;
         }
     }
+
+    /*public void SetDate()
+    {
+        do
+        {
+            storage.badMax = 0;
+
+            randomNum = UnityEngine.Random.Range(-500, 365);
+            today = DateTime.Today;
+            date = today.AddDays(randomNum);
+
+            sellbyDate.text = date.ToString("yy/MM/dd");
+
+            if (DateTime.Compare(today, date) < 0) //유통기한 안지났으면
+            {
+                bad = false;
+
+            }
+            else
+            {
+                bad = true; //유통기한 지났거나 오늘까지면
+                storage.badMax++;
+            }
+
+        } while (storage.badMax != 0 || storage.badMax != 9);
+    }*/
 
 
     public void OnClick()
@@ -64,12 +106,13 @@ public class SellByDate : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         storage.warning.SetActive(false);
-        storage.panel.SetActive(false);
     }
 
     IEnumerator ClearExitDelay()
     {
         yield return new WaitForSeconds(2f);
+        storage.badMax = 0;
+        storage.complete = true;
         storage.clear.SetActive(false);
         storage.panel.SetActive(false);
     }

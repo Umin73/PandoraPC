@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Storage : MonoBehaviour
 {
+    private SellByDate sellByDate;
+
     public Transform boxRoot;
-    private List<SellByDate> sellByDates;
+    public List<SellByDate> sellByDates;
 
     public GameObject panel;
     public GameObject warning;
@@ -14,19 +16,16 @@ public class Storage : MonoBehaviour
     public int badCnt = 0;
     public int badMax = 0;
 
+    public bool complete;
+
     private void Start()
     {
         sellByDates = new List<SellByDate>();
-
-        while(badMax != 0)
-        {
-            for (int i = 0; i < sellByDates.Count; i++)
-            {
-                var box = boxRoot.GetChild(i).GetComponent<SellByDate>();
-                if (box.bad == true) badMax++;
-            }
-        }
     }
 
-
+    private void Update()
+    {
+        if (this.gameObject.activeSelf == true) complete = false;
+        else complete = true;
+    }
 }

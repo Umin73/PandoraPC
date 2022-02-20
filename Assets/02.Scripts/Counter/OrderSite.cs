@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class OrderSite : MonoBehaviour
 {
+    private Order order;
+
     public GameObject warning; //오류 창
     public GameObject clear; //클리어 창
     public GameObject orderSite;
@@ -12,12 +14,16 @@ public class OrderSite : MonoBehaviour
 
     public int finish;
     private int finishMax;
+    public Transform[] orderRoot;
+
+    [HideInInspector]public bool complete;
 
 
     void Start()
     {
         finishMax = 3;
         finish = 0;
+        complete = false;
     }
 
     private void Update()
@@ -27,6 +33,17 @@ public class OrderSite : MonoBehaviour
             clear.SetActive(true);
             StartCoroutine("ExitOrder");
         }
+    }
+
+    void ResetOrder()
+    {
+        finish = 0;
+        for (int k = 0; k < orderRoot.Length; k++)
+        {
+            var orderObject = orderRoot[k].GetComponent<Order>();
+            orderObject.ResetQuantity();
+        }
+
     }
 
     public void Enter()
@@ -42,6 +59,7 @@ public class OrderSite : MonoBehaviour
     IEnumerator ExitOrder()
     {
         yield return new WaitForSeconds(2f);
+        ResetOrder();
         clear.SetActive(false);
         counterPanel.SetActive(false);
     }

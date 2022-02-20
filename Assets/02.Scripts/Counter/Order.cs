@@ -10,13 +10,27 @@ public class Order : MonoBehaviour
     [SerializeField] private Text orderName; //주문할 것의 이름
     [SerializeField] private Text Quantity; //수량 표시
     [SerializeField] private InputField orderQuantity; //입력 수량
-    [SerializeField] private Button orderButton; //주문 버튼
+    [SerializeField] public Button orderButton; //주문 버튼
 
     private int curQuantity; //현재 수량
     private int maxQuantity; //최대 수량
 
 
     void Start()
+    {
+        setQuantity();
+    }
+
+    /*private void Update()
+    {
+        if (orderSite.complete)
+        {
+            orderSite.clear.SetActive(true);
+            StartCoroutine("ExitOrder");
+        }
+    }*/
+
+    public void setQuantity()
     {
         curQuantity = Random.Range(10, 90);
         maxQuantity = 100;
@@ -46,10 +60,25 @@ public class Order : MonoBehaviour
         }
     }
 
+    public void ResetQuantity()
+    {
+        setQuantity();
+        orderQuantity.text = "";
+        orderButton.interactable = true;
+    }
+
     IEnumerator WarningExitDelay()
     {
         yield return new WaitForSeconds(2f);
         orderSite.warning.SetActive(false);
     }
+
+    /*IEnumerator ExitOrder()
+    {
+        yield return new WaitForSeconds(2f);
+        orderSite.ResetOrder();
+        orderSite.clear.SetActive(false);
+        orderSite.counterPanel.SetActive(false);
+    }*/
 
 }
