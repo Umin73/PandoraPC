@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SellByDate : MonoBehaviour
 {
+    private InGameManager GM;
     public Storage storage;
 
     private DateTime today;
@@ -20,6 +21,7 @@ public class SellByDate : MonoBehaviour
 
     private void Start()
     {
+        GM = GameObject.Find("InGameManager").GetComponent<InGameManager>();
          Reset();
     }
 
@@ -44,14 +46,14 @@ public class SellByDate : MonoBehaviour
 
         sellbyDate.text = date.ToString("yy/MM/dd");
 
-        if (DateTime.Compare(today, date) < 0) //À¯Åë±âÇÑ ¾ÈÁö³µÀ¸¸é
+        if (DateTime.Compare(today, date) < 0) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             bad = false;
 
         }
         else
         {
-            bad = true; //À¯Åë±âÇÑ Áö³µ°Å³ª ¿À´Ã±îÁö¸é
+            bad = true; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½
             storage.badMax++;
         }
     }
@@ -68,14 +70,14 @@ public class SellByDate : MonoBehaviour
 
             sellbyDate.text = date.ToString("yy/MM/dd");
 
-            if (DateTime.Compare(today, date) < 0) //À¯Åë±âÇÑ ¾ÈÁö³µÀ¸¸é
+            if (DateTime.Compare(today, date) < 0) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             {
                 bad = false;
 
             }
             else
             {
-                bad = true; //À¯Åë±âÇÑ Áö³µ°Å³ª ¿À´Ã±îÁö¸é
+                bad = true; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½
                 storage.badMax++;
             }
 
@@ -110,6 +112,7 @@ public class SellByDate : MonoBehaviour
 
     IEnumerator ClearExitDelay()
     {
+        GM.StorageClear();
         yield return new WaitForSeconds(2f);
         storage.badMax = 0;
         storage.complete = true;

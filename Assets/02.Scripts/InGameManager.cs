@@ -9,6 +9,8 @@ public class InGameManager : MonoBehaviour
     public GameObject cookPanel, elecPanel, cleanPanel, storagePanel, counterPanel;
     public GameObject scoreText, gameoverPanel;
     bool canCook, canElec, canClean, canStorage, canCounter;
+    bool isElec, isClean, isStorage, isCounter;
+    float elecTimer, cleanTimer, storageTimer, counterTimer;
     public GameObject complainGage;
     public float maxComplain;
     private float complainVar;
@@ -32,9 +34,14 @@ public class InGameManager : MonoBehaviour
         canStorage = false;
         canCounter = false;
         isGameOver = false;
+        elecTimer =0;
+        cleanTimer = 0;
+        storageTimer = 0;
+        counterTimer = 0;
         complainGage.GetComponent<Image>().fillAmount = complainVar / maxComplain;
 
         StartCoroutine(ComeGuest());
+        StartCoroutine(EventSystem());
     }
 
     // Update is called once per frame
@@ -47,20 +54,144 @@ public class InGameManager : MonoBehaviour
 
         if(!isGameOver)
             timescore += Time.deltaTime;
+
+        if(isElec)
+        {
+            elecIcon.SetActive(true);
+            elecTimer += Time.deltaTime;
+        }
+        else
+        {
+            elecIcon.SetActive(false);
+            elecTimer = 0;
+        }
+
+        if(isClean)
+        {
+            cleanIcon.SetActive(true);
+            cleanTimer += Time.deltaTime;
+        }
+        else
+        {
+            cleanIcon.SetActive(false);
+            cleanTimer = 0;
+        }
+
+        if(isCounter)
+        {
+            counterIcon.SetActive(true);
+            counterTimer += Time.deltaTime;
+        }
+        else
+        {
+            counterIcon.SetActive(false);
+            counterTimer = 0;
+        }
+        
+        if(isStorage)
+        {
+            storageIcon.SetActive(true);
+            storageTimer += Time.deltaTime;
+        }
+        else
+        {
+            storageIcon.SetActive(false);
+            storageTimer = 0;
+        }
+
+        if(elecTimer >= 15f)
+        {
+            AddComplain();
+            isElec = false;
+        }
+
+        if(cleanTimer >= 15f)
+        {
+            AddComplain();
+            isClean = false;
+        }
+
+        if(storageTimer >= 15f)
+        {
+            AddComplain();
+            isStorage = false;
+        }
+
+        if(counterTimer >= 15f)
+        {
+            AddComplain();
+            isCounter = false;
+        }
+    }
+
+    public void ElecClear()
+    {
+        isElec = false;
+    }
+
+    public void CleanClear()
+    {
+        isClean = false;
+    }
+
+    public void StorageClear()
+    {
+        isStorage =false;
+    }
+
+    public void CounterClear()
+    {
+        isCounter = false;
     }
 
     IEnumerator ComeGuest()
     {
+        int rnd;
+        int cooltime;
         while(true)
         {
-            int rnd = Random.Range(0, computers.Count);
-            int cooltime = Random.Range(5, 11);
+            rnd = Random.Range(0, computers.Count);
+            cooltime = Random.Range(5, 11);
 
             computers[rnd].GetComponent<Computer>().SetGuest();
 
             yield return new WaitForSeconds(cooltime);
         }
     }
+
+    IEnumerator EventSystem()
+    {
+        int rnd;
+        int cooltime;
+        while(true)
+        {
+            cooltime = Random.Range(10,21);
+            
+            rnd = Random.Range(0,4);
+
+            if(rnd == 0) //Elec
+            {
+                isElec = true;
+            }
+            else if(rnd == 1) // Clean
+            {
+                isClean = true;
+            }
+            else if(rnd == 2) // Storage
+            {
+                isStorage = true;
+            }
+            else if(rnd == 3) // counter
+            {
+                isCounter = false;
+            }
+
+
+            yield return new WaitForSeconds(cooltime);
+        }
+    }
+
+    
 
     void CheckGameOver()
     {
@@ -91,12 +222,12 @@ public class InGameManager : MonoBehaviour
     {
         if(onoff == true)
         {
-            elecIcon.SetActive(true);
+            //elecIcon.SetActive(true);
             canElec = true;
         }
         else
         {
-            elecIcon.SetActive(false);
+            //elecIcon.SetActive(false);
             canElec = false;
         }
     }
@@ -105,12 +236,12 @@ public class InGameManager : MonoBehaviour
     {
         if(onoff == true)
         {
-            cleanIcon.SetActive(true);
+            //cleanIcon.SetActive(true);
             canClean = true;
         }
         else
         {
-            cleanIcon.SetActive(false);
+            //cleanIcon.SetActive(false);
             canClean = false;
         }
     }
@@ -119,12 +250,12 @@ public class InGameManager : MonoBehaviour
     {
         if(onoff == true)
         {
-            storageIcon.SetActive(true);
+            //storageIcon.SetActive(true);
             canStorage = true;
         }
         else
         {
-            storageIcon.SetActive(false);
+            //storageIcon.SetActive(false);
             canStorage = false;
         }
     }
@@ -133,12 +264,12 @@ public class InGameManager : MonoBehaviour
     {
         if(onoff == true)
         {
-            counterIcon.SetActive(true);
+            //counterIcon.SetActive(true);
             canCounter = true;
         }
         else
         {
-            counterIcon.SetActive(false);
+            //counterIcon.SetActive(false);
             canCounter = false;
         }
     }
@@ -149,19 +280,19 @@ public class InGameManager : MonoBehaviour
         {
             cookPanel.SetActive(true);
         }
-        else if(canElec)
+        else if(canElec && isElec)
         {
             elecPanel.SetActive(true);
         }
-        else if(canClean)
+        else if(canClean && isClean)
         {
             cleanPanel.SetActive(true);
         }
-        else if(canStorage)
+        else if(canStorage && isStorage)
         {
             storagePanel.SetActive(true);
         }
-        else if(canCounter)
+        else if(canCounter && isCounter)
         {
             counterPanel.SetActive(true);
         }

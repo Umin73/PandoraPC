@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class WasteManager : MonoBehaviour
 {
+    private InGameManager GM;
     private WasteBin wasteBin;
     private WasteObject wasteObject;
 
@@ -27,6 +28,7 @@ public class WasteManager : MonoBehaviour
 
     private void Start()
     {
+        GM = GameObject.Find("InGameManager").GetComponent<InGameManager>();
         boolCan = GameObject.FindGameObjectsWithTag("trash_can");
         boolPaper = GameObject.FindGameObjectsWithTag("trash_paperCup");
 
@@ -47,7 +49,7 @@ public class WasteManager : MonoBehaviour
             clear.SetActive(true);
         }
 
-        Debug.Log(complete);
+        //Debug.Log(complete);
 
         for(i = 0; i < boolCanSize;i++)
         {
@@ -63,6 +65,7 @@ public class WasteManager : MonoBehaviour
         if (i == boolCanSize && j == boolPaperSize)
         {
             clear.SetActive(true);
+            
             StartCoroutine("ExitCleanDelay");
         }
     }
@@ -81,6 +84,7 @@ public class WasteManager : MonoBehaviour
 
     IEnumerator ExitCleanDelay()
     {
+        GM.CleanClear();
         yield return new WaitForSeconds(2f);
         complete = true;
         ResetWaste();

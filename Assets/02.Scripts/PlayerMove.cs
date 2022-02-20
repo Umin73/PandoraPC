@@ -12,7 +12,7 @@ public class PlayerMove : MonoBehaviour
     private int direction;
     private bool isMove;
     private bool isW, isA, isS, isD;
-    private bool isObject, isInter;
+    private bool isObject, isInter, isComputer;
 
     //패널 예시
     //public GameObject panel;
@@ -33,6 +33,7 @@ public class PlayerMove : MonoBehaviour
     {
         isInter = false;
         isObject = false;
+        isComputer = false;
         isMove = false;
         isW = false;
         isA = false;
@@ -120,7 +121,7 @@ public class PlayerMove : MonoBehaviour
         if(isMove && !isInter)
         {
           rb.MovePosition(rb.position + new Vector2(x,y)*Time.deltaTime);
-          
+          gameObject.GetComponent<Animator>().speed = 1.0f;
         }
         else
         {
@@ -220,7 +221,8 @@ public class PlayerMove : MonoBehaviour
         {
             isObject = true;
             GM.StorageIconActive(true);
-        }else if (collision.CompareTag("Counter"))
+        }
+        else if (collision.CompareTag("Counter"))
         {
             isObject = true;
             GM.CounterIconActive(true);
@@ -249,7 +251,9 @@ public class PlayerMove : MonoBehaviour
         {
             isObject = false;
             GM.StorageIconActive(false);
-        }else if (collision.CompareTag("Counter"))
+        }
+        
+        else if (collision.CompareTag("Counter"))
         {
             isObject = false;
             GM.CounterIconActive(false);

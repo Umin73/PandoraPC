@@ -21,6 +21,7 @@ public class Storage : MonoBehaviour
     private void Start()
     {
         sellByDates = new List<SellByDate>();
+        
     }
 
     private void Update()

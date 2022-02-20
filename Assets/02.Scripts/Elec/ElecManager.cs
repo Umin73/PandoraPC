@@ -7,8 +7,9 @@ public class ElecManager : MonoBehaviour
 {
     public GameObject panel;
     public GameObject clear;
+    private InGameManager GM;
 
-    public bool elecGoOut; //Àü±â ²¨Á³´ÂÁö ¿©ºÎ 
+    public bool elecGoOut; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 
     public GameObject[] ButtonList;
     private int listSize;
@@ -19,6 +20,7 @@ public class ElecManager : MonoBehaviour
     private void Start()
     {
         ButtonList = GameObject.FindGameObjectsWithTag("elecButton");
+        GM = GameObject.Find("InGameManager").GetComponent<InGameManager>();
 
         elecGoOut = false;
         listSize = 5;
@@ -45,6 +47,7 @@ public class ElecManager : MonoBehaviour
         {
             clear.SetActive(true);
             StartCoroutine("DelayExit");
+            
         }
 
     }
@@ -65,6 +68,7 @@ public class ElecManager : MonoBehaviour
 
     IEnumerator DelayExit()
     {
+        GM.ElecClear();
         yield return new WaitForSeconds(2f);
         ResetElec();
         clear.SetActive(false);

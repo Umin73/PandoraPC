@@ -19,6 +19,8 @@ public class Computer : MonoBehaviour
 
     private bool isFood;
 
+    private bool isInter;
+
     public GameObject OrderIcon;
 
     public float minStayTime;
@@ -33,6 +35,7 @@ public class Computer : MonoBehaviour
     private int foodNo;
 
     public GameObject FoodIcon;
+
     
     // Start is called before the first frame update
     void Start()
@@ -45,6 +48,8 @@ public class Computer : MonoBehaviour
 
         isGuest = false;
         isFood = false;
+
+        isInter = false;
         staytimeCount = 0;
         foodTimeCount = 0;
 
@@ -56,6 +61,11 @@ public class Computer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKey(KeyCode.Space) && isInter)
+        {
+            InteractCom();
+        }
+
         if(isTrash)
         {
             trashTimeCount += Time.deltaTime;
@@ -178,5 +188,34 @@ public class Computer : MonoBehaviour
         trashGage.SetActive(false);
         isTrash = false;
         trashTimeCount = 0;
+    }
+
+    public void InteractCom()
+    {
+        if(isTrash)
+        {
+            ClearTrash();
+        }
+        else if(isFood)
+        {
+            ClearOrder();
+        }
+    }
+
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            isInter = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            isInter = false;
+        }
     }
 }
