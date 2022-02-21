@@ -58,7 +58,7 @@ public class OrderSite : MonoBehaviour
 
     IEnumerator ExitOrder()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         ResetOrder();
         clear.SetActive(false);
         counterPanel.SetActive(false);

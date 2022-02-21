@@ -104,16 +104,17 @@ public class SellByDate : MonoBehaviour
         }
     }
 
+
     IEnumerator WarningExitDelay()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         storage.warning.SetActive(false);
     }
 
     IEnumerator ClearExitDelay()
     {
         GM.StorageClear();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         storage.badMax = 0;
         storage.complete = true;
         storage.clear.SetActive(false);

@@ -69,7 +69,7 @@ public class ElecManager : MonoBehaviour
     IEnumerator DelayExit()
     {
         GM.ElecClear();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         ResetElec();
         clear.SetActive(false);
         panel.SetActive(false);

@@ -69,7 +69,7 @@ public class Order : MonoBehaviour
 
     IEnumerator WarningExitDelay()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         orderSite.warning.SetActive(false);
     }
 
