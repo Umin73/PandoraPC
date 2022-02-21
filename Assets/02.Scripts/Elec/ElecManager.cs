@@ -52,7 +52,7 @@ public class ElecManager : MonoBehaviour
 
     }
 
-    void ResetElec()
+    public void ResetElec()
     {
         randomNum = UnityEngine.Random.Range(0, listSize);
         Debug.Log(randomNum);

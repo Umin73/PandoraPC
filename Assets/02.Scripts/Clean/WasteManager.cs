@@ -70,7 +70,7 @@ public class WasteManager : MonoBehaviour
         }
     }
 
-    void ResetWaste()
+    public void ResetWaste()
     {
         i = 0; j = 0;
         for (int k=0;k< wasteRoot.childCount; k++)

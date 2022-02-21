@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class InGameManager : MonoBehaviour
 {
     public GameObject cookIcon, elecIcon, cleanIcon, storageIcon, counterIcon;
     public GameObject cookPanel, elecPanel, cleanPanel, storagePanel, counterPanel;
+    public GameObject EM, CM, SM, WM;
     public GameObject scoreText, gameoverPanel;
     bool canCook, canElec, canClean, canStorage, canCounter;
     bool isElec, isClean, isStorage, isCounter;
@@ -127,21 +129,25 @@ public class InGameManager : MonoBehaviour
     public void ElecClear()
     {
         isElec = false;
+        PM.DeActInter();
     }
 
     public void CleanClear()
     {
         isClean = false;
+        PM.DeActInter();
     }
 
     public void StorageClear()
     {
         isStorage =false;
+        PM.DeActInter();
     }
 
     public void CounterClear()
     {
         isCounter = false;
+        PM.DeActInter();
     }
 
     IEnumerator ComeGuest()
@@ -283,18 +289,22 @@ public class InGameManager : MonoBehaviour
         else if(canElec && isElec)
         {
             elecPanel.SetActive(true);
+            EM.GetComponent<ElecManager>().ResetElec();
         }
         else if(canClean && isClean)
         {
             cleanPanel.SetActive(true);
+            WM.GetComponent<WasteManager>().ResetWaste();
         }
         else if(canStorage && isStorage)
         {
             storagePanel.SetActive(true);
+            //SM.GetComponent<SellByData>().Reset();
         }
         else if(canCounter && isCounter)
         {
             counterPanel.SetActive(true);
+            //CM.GetComponent<Order>().ResetQuantity();
         }
     }
 
@@ -314,5 +324,10 @@ public class InGameManager : MonoBehaviour
         complainGage.GetComponent<Image>().fillAmount = complainVar / maxComplain;
 
         CheckGameOver();
+    }
+
+    public void BackToTitle()
+    {
+        SceneManager.LoadScene("Title");
     }
 }
